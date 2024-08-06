@@ -15,13 +15,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => IncidenciasProvider()),
       ],
       child: MaterialApp(
-        home: RegisterIncidencias(),
+        home: RegisterIncidenciaScreen(),
       ),
     );
   }
 }
-
-
 
 class IncidenciasScreen extends StatelessWidget {
   @override
@@ -33,7 +31,7 @@ class IncidenciasScreen extends StatelessWidget {
         title: Text('Incidencias'),
       ),
       body: FutureBuilder(
-        future: incidenciasProvider.fetchIncidencias(),
+        future: incidenciasProvider.fetchIncidencias('example_token', 'example_situacion_id'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -45,8 +43,8 @@ class IncidenciasScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final incidencia = incidenciasProvider.incidencias[index];
                 return ListTile(
-                  title: Text(incidencia.title),
-                  subtitle: Text(incidencia.description),
+                  title: Text(incidencia.motivo),
+                  subtitle: Text(incidencia.comentario),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -74,14 +72,14 @@ class IncidenciaDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(incidencia.title),
+        title: Text(incidencia.motivo),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(incidencia.description),
+            Text(incidencia.comentario),
             // Aquí puedes agregar la visualización de la foto y el audio
           ],
         ),
