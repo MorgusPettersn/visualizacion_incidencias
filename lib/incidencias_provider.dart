@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// Modelo para una incidencia
 class Incidencia {
   final String cedulaDirector;
   final String codigoCentro;
@@ -29,6 +30,7 @@ class Incidencia {
     required this.token,
   });
 
+  // Crea una incidencia a partir de un mapa JSON
   factory Incidencia.fromJson(Map<String, dynamic> json) {
     return Incidencia(
       cedulaDirector: json['cedula_director'],
@@ -45,6 +47,7 @@ class Incidencia {
     );
   }
 
+  // Convierte una incidencia a un mapa JSON
   Map<String, dynamic> toJson() {
     return {
       'cedula_director': cedulaDirector,
@@ -62,6 +65,7 @@ class Incidencia {
   }
 }
 
+// Proveedor para gestionar el estado de las incidencias
 class IncidenciasProvider with ChangeNotifier {
   List<Incidencia> _incidencias = [];
   List<String> _historial = [];
@@ -69,9 +73,10 @@ class IncidenciasProvider with ChangeNotifier {
   List<Incidencia> get incidencias => _incidencias;
   List<String> get historial => _historial;
 
-  // URL base de tu API
+  // URL base de la API
   final String baseUrl = 'https://example.com/api';
 
+  // Obtiene las incidencias desde la API
   Future<void> fetchIncidencias(String token, String situacionId) async {
     final response = await http.post(
       Uri.parse('$baseUrl/detalle_visita'),
@@ -97,6 +102,7 @@ class IncidenciasProvider with ChangeNotifier {
     }
   }
 
+  // Añade una nueva incidencia a la lista y a la API
   void addIncidencia(Incidencia incidencia) async {
     final response = await http.post(
       Uri.parse('$baseUrl/reportar_visita'),
@@ -117,11 +123,13 @@ class IncidenciasProvider with ChangeNotifier {
     }
   }
 
+  // Añade un token al historial
   void addTokenToHistorial(String token) {
     _historial.add(token);
     notifyListeners();
   }
 
+  // Envía un token a la API
   Future<void> sendTokenToAPI(String token) async {
     final response = await http.post(
       Uri.parse('$baseUrl/enviar_token'),
@@ -133,6 +141,7 @@ class IncidenciasProvider with ChangeNotifier {
     }
   }
 
+  // Limpia todos los registros de incidencias y historial
   void clearAllRecords() {
     _incidencias.clear();
     _historial.clear();

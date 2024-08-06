@@ -6,6 +6,7 @@ import 'register_incidencias.dart';
 void main() {
   runApp(MyApp());
 }
+// Clase principal de la aplicación que configura los proveedores y el widget principal
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// Pantalla que muestra la lista de incidencias
 
 class IncidenciasScreen extends StatelessWidget {
   @override

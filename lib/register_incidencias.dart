@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'incidencias_provider.dart';
 
+// Pantalla para registrar una nueva incidencia
 class RegisterIncidenciaScreen extends StatefulWidget {
   @override
   _RegisterIncidenciaScreenState createState() => _RegisterIncidenciaScreenState();
 }
-
+  // Método para guardar el formulario
 class _RegisterIncidenciaScreenState extends State<RegisterIncidenciaScreen> {
   final _formKey = GlobalKey<FormState>();
   String _cedulaDirector = '';
